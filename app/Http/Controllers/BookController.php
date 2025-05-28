@@ -8,7 +8,14 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::with('author')->get(); // ambil buku + relasi penulis
-        return view('books.index', compact('books'));
+        $books = Book::with('author')->get(); // jika relasi sudah dibuat
+        return response()->json($books);
     }
+    // Book.php (Model)
+public function author()
+{
+    return $this->belongsTo(Author::class);
 }
+
+}
+
