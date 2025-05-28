@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
-class Author
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Book;
+
+class Author extends Model
 {
-    public static function all()
+    use HasFactory;
+
+    protected $fillable = ['name', 'email'];
+
+    public function books()
     {
-        return [
-            ['id' => 1, 'name' => 'Tere Liye'],
-            ['id' => 2, 'name' => 'Andrea Hirata'],
-            ['id' => 3, 'name' => 'Dewi Lestari'],
-            ['id' => 4, 'name' => 'Habiburrahman El Shirazy'],
-            ['id' => 5, 'name' => 'Asma Nadia'],
-        ];
+        return $this->hasMany(Book::class);
     }
 }

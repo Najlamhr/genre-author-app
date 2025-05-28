@@ -1,5 +1,12 @@
-use App\Http\Controllers\GenreController;
-use App\Http\Controllers\AuthorController;
+<?php
 
-Route::get('/genres', [GenreController::class, 'index']);
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::get('/authors', [AuthorController::class, 'index']);
+Route::get('/books', [BookController::class, 'index']);
