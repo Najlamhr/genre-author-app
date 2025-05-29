@@ -2,11 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
-use App\Http\Controllers\BookController;
 
-Route::middleware('api')->group(function () {
-    Route::get('/authors', [AuthorController::class, 'index']);
-    Route::get('/books', [BookController::class, 'index']);
-});
+// Routes for Genre
+Route::get('/genres', [GenreController::class, 'index']);   // Read all genres
+Route::post('/genres', [GenreController::class, 'store']);  // Create genre
+
+// Routes for Author
+Route::get('/authors', [AuthorController::class, 'index']); // Read all authors
+Route::post('/authors', [AuthorController::class, 'store']); // Create author
