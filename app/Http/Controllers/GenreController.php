@@ -11,7 +11,16 @@ class GenreController extends Controller
     {
         return response()->json(Genre::all());
     }
+public function show($id)
+{
+    $genre = Genre::find($id);
 
+    if (!$genre) {
+        return response()->json([
+            'message' => 'Genre not found'
+        ], 404);
+    }
+}
     public function store(Request $request)
     {
         $request->validate([
