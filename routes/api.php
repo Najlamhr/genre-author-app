@@ -1,16 +1,22 @@
 <?php
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
 
-// Routes for Genre
-Route::get('/genres', [GenreController::class, 'index']);   // Read all genres
-Route::post('/genres', [GenreController::class, 'store']);  // Create genre
-Route::apiResource('genres', GenreController::class)->only(['show', 'update', 'destroy']);
+// Terbuka untuk umum
+Route::get('/genres', [GenreController::class, 'index']);
+Route::get('/genres/{genre}', [GenreController::class, 'show']);
 
-// Routes for Author
-Route::get('/authors', [AuthorController::class, 'index']); // Read all authors
-Route::post('/authors', [AuthorController::class, 'store']); // Create author
-Route::apiResource('authors', AuthorController::class)->only(['show', 'update', 'destroy']);
+Route::get('/authors', [AuthorController::class, 'index']);
+Route::get('/authors/{author}', [AuthorController::class, 'show']);
+
+// Khusus admin
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::post('/genres', [GenreController::class, 'store']);
+    Route::put('/genres/{genre}', [GenreController::class, 'update']);
+    Route::delete('/genres/{genre}', [GenreController::class, 'destroy']);
+
+    Route::post('/authors', [AuthorController::class, 'store']);
+    Route::put('/authors/{author}', [AuthorController::class, 'update']);
+    Route::delete('/authors/{author}', [AuthorController::class, 'destroy']);
+});
